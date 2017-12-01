@@ -1,8 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import FormatForm from './FormatForm';
+import React from 'react'
+import FormatForm from './FormatForm'
+import { expect } from 'chai'
+import { shallow } from 'enzyme'
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<FormatForm />, div);
-});
+describe('FormatForm', () => {
+  let formatForm
+
+  beforeEach(() => {
+    formatForm = shallow(<FormatForm />)
+  })
+
+  it('renders a div with class "formatForm"', () => {
+    expect(formatForm.hasClass("formatForm"))
+  })
+})

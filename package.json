@@ -1,6 +1,8 @@
 {
   "name": "meristem-webpage",
   "version": "0.1.0",
+  "description": "Procedural text generation using a context-free grammar",
+  "author": "Forrest Weiswolf <forrest.weiswolf@gmail.com>",
   "private": true,
   "dependencies": {
     "react": "^16.2.0",

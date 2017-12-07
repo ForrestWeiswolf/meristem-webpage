@@ -11,7 +11,7 @@ class App extends Component {
 					<img src={logo} className="App-logo" alt="logo" />
 					<h1 className="App-title">Meristem</h1>
 				</header>
-				<FormatForm handleSubmit={(str) => console.log('submitted', str)} />
+				<FormatForm handleSubmit={(str, defs) => console.log(str, defs)} />
 			</div>
 		)
 	}

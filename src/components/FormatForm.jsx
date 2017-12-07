@@ -4,22 +4,47 @@ class FormatForm extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			formatString: ''
+			formatString: '',
+			definitions: ''
 		}
 		this.handleSubmit = this.props.handleSubmit.bind(this)
-		this.handleChange = this.handleChange.bind(this)
+		this.handleChangeFormat = this.handleChangeFormat.bind(this)
+		this.handleChangeDefinitions = this.handleChangeDefinitions.bind(this)
 	}
 
-	handleChange(evt) {
+	handleChangeFormat(evt) {
 		this.setState({ formatString: evt.target.value })
+	}
+
+	handleChangeDefinitions(evt) {
+		this.setState({ definitions: evt.target.value })
 	}
 
 	render() {
 		return (
 			<div className="formatForm">
 				<form>
-					<input type='text' name='formatString' value={this.state.formatString} onChange={this.handleChange} />
-					<button type="button" onClick={() => this.handleSubmit(this.state.formatString)}>Generate text</button>
+					<label> Format:
+						<input
+							type='text'
+							name='formatString'
+							value={this.state.formatString}
+							onChange={this.handleChangeFormat}
+						/>
+					</label>
+					<br />
+					<label> Definitions:
+						<input
+							type='text'
+							name='definitions'
+							value={this.state.defintions}
+							onChange={this.handleChangeDefinitions}
+						/>
+					</label>
+					<button
+						type="button"
+						onClick={() => this.handleSubmit(this.state.formatString, this.state.definitions)}
+					>Generate text</button>
 				</form>
 			</div>
 		)

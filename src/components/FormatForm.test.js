@@ -23,8 +23,12 @@ describe('FormatForm', () => {
 		expect(formatForm.find('form')).to.have.length(1)
 	})
 
-	it('contains a field for a string', () => {
-		expect(formatForm.find('input[type="text"]')).to.have.length(1)
+	it('contains a text field named "formatString"', () => {
+		expect(formatForm.find('input[type="text"][name="formatString"]')).to.have.length(1)
+	})
+
+	it('contains a text field named "definitions"', () => {
+		expect(formatForm.find('input[type="text"][name="definitions"]')).to.have.length(1)
 	})
 
 	// it('has a handleSubmit function as a prop', () => {
@@ -37,17 +41,24 @@ describe('FormatForm', () => {
 
 	it('calls handleSubmit when the submit button is clicked', () => {
 		formatForm.find('button').first().simulate('click')
-		
+
 		expect(submitSpy.called).to.be.true
 	})
 
-	it('calls handleSubmit with whatever was typed in the text field', () => {
-		const input = '(nonterminal)'
-		const event = {target: {name: 'formatString', value: input}}
-		formatForm.find('input').first().simulate('change', event)
-		formatForm.find('button').first().simulate('click')
-		
-		expect(submitSpy.calledWith(input)).to.be.true
-	})
+	it('calls handleSubmit with whatever was typed in the formatString and defintions fields', () => {
+		const formatString = 'A (nonterminal) part of the string'
+		const definitions = '{"nonterminal": "terminal"}'
 
+		const formatStringEvt = { target: { name: 'formatString', value: formatString } }
+		const definitionsEvt = { target: { name: 'definitions', value: definitions } }
+
+		formatForm.find('input[name="formatString"]').first()
+			.simulate('change', formatStringEvt)
+
+		formatForm.find('input[name="definitions"]').first()
+			.simulate('change', definitionsEvt)
+		formatForm.find('button').first().simulate('click')
+
+		expect(submitSpy.calledWith(formatString, definitions)).to.be.true
+	})
 })

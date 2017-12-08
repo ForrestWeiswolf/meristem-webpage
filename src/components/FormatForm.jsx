@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 class FormatForm extends Component {
 	constructor(props) {
@@ -49,6 +50,10 @@ class FormatForm extends Component {
 			</div>
 		)
 	}
+}
+
+FormatForm.propTypes = {
+	handleSubmit: PropTypes.func.isRequired
 }
 
 export default FormatForm

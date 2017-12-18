@@ -42,6 +42,10 @@ describe('Results', () => {
 		expect(results.find('p').text()).to.equal(format.expand())
 	})
 
+	xit('If format.expand throws an error, displays it with class "error"', () => {
+
+	})
+
 	xit('rerenders when new props are recieved', () => {
 
 	})

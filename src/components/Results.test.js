@@ -2,16 +2,17 @@ import React from 'react'
 import Results from './Results'
 import { expect } from 'chai'
 import { shallow } from 'enzyme'
-import Meristem from 'meristem'
+import { Format } from 'meristem'
 
 describe('Results', () => {
 	let results
-	const str = 'Words, words, words'
+	const str = '"(this)" is a sentence without a subject.'
+	const defs = {'this': 'is a sentence without a subject.'}
 
 	beforeEach(() => {
 		results = shallow(<Results 
-			formatString="'(this)' is a sentence with a subject." 
-			definitions={{'this': 'is a sentence with a subject.'}} 
+			formatString={str}
+			definitions={defs} 
 		/>)
 	})
 
@@ -28,8 +29,8 @@ describe('Results', () => {
 	})
 
 	it('Renders the result of expanding a Meristem format with the formatString and definitions from its props', () => {
-		const format = Meristem.format('\'(this)\' is a sentence with a subject.', {'this': 'is a sentence with a subject.'})
-		expect(results.find('p').text()).to.be(format.expand())
+		const format = new Format(str, defs)
+		expect(results.find('p').text()).to.equal(format.expand())
 	})
 
 	xit('rerenders when new props are recieved', () => {

@@ -3,17 +3,23 @@ import PropTypes from 'prop-types'
 import { Format } from 'meristem'
 
 const Results = (props) => {
-	const format = new Format(props.formatString, props.definitions)
+	let text = ''
+
+	if (props.formatString && props.definitions) {
+		const format = new Format(props.formatString, props.definitions)
+		text = format.expand()
+	}
+
 	return (
 		<div className="results">
-			<p>{format.expand()}</p>
+			<p>{text}</p>
 		</div>
 	)
 }
 
 Results.propTypes = {
 	formatString: PropTypes.string,
-	defintions: PropTypes.object	
+	defintions: PropTypes.object
 }
 
 export default Results

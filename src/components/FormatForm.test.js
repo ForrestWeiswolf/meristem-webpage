@@ -3,7 +3,6 @@ import FormatForm from './FormatForm'
 import { expect } from 'chai'
 import { shallow } from 'enzyme'
 import { spy } from 'sinon'
-import { format } from 'url';
 
 describe('FormatForm', () => {
 	let formatForm

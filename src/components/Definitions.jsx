@@ -13,7 +13,11 @@ class Definitions extends Component {
 		this.addNonterminal = this.addNonterminal.bind(this)
 	}
 
-	addNonterminal() {
+	addNonterminal(e) {
+		if (e) {
+			e.preventDefault()
+		}
+
 		this.setState({ nonterminals: [...this.state.nonterminals, []] })
 	}
 

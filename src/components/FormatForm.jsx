@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Definitions from './Definitions'
 
 class FormatForm extends Component {
 	constructor(props) {
@@ -41,6 +42,7 @@ class FormatForm extends Component {
 							value={this.state.defintions}
 							onChange={this.handleChangeDefinitions}
 						/>
+						<Definitions />
 					</label>
 					<button
 						type="button"

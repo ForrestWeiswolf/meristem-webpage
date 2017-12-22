@@ -9,7 +9,7 @@ const Nonterminal = props => {
 					<input
 						type='text'
 						name='token'
-						onChange={props.handleChange}
+						onChange={props.handleChangeToken}
 					/>
 				</label>
 
@@ -17,7 +17,7 @@ const Nonterminal = props => {
 					<input
 						type='text'
 						name='definition'
-						onChange={props.handleChange}
+						onChange={props.handleChangeDef}
 					/>
 				</label>
 			</form>
@@ -26,7 +26,8 @@ const Nonterminal = props => {
 }
 
 Nonterminal.propTypes = {
-	handleChange: PropTypes.func.isRequired
+	handleChangeToken: PropTypes.func.isRequired,
+	handleChangeDef: PropTypes.func.isRequired
 }
 
 export default Nonterminal

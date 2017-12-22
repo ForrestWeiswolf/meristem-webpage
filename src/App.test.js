@@ -1,15 +1,14 @@
 import React from 'react'
 import App from './App'
 import { expect } from 'chai'
-import { mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import { spy } from 'sinon'
-import { FormatForm, Results } from './components'
 
 describe('App', () => {
 	let app
 
 	beforeEach(() => {
-		app = mount(<App />)
+		app = shallow(<App />)
 	})
 
 	it('has a header', () => {
@@ -25,6 +24,5 @@ describe('App', () => {
 	})
 
 	xit('passes the return of its FormatForm\'s handleSubmit prop to its Results', () => {
-
 	})
 })

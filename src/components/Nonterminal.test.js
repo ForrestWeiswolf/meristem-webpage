@@ -25,10 +25,6 @@ describe('Nonterminal', () => {
 	xit('takes a handleChangeDef function as a prop', () => {
 	})
 
-	it('contains a form', () => {
-		expect(nonterminal.find('form')).to.have.length(1)
-	})
-
 	it('contains a text field named "token"', () => {
 		expect(nonterminal.find('input[type="text"][name="token"]')).to.have.length(1)
 	})

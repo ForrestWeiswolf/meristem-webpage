@@ -42,7 +42,7 @@ class FormatForm extends Component {
 							value={this.state.defintions}
 							onChange={this.handleChangeDefinitions}
 						/>
-						<Definitions />
+						<Definitions handleChange={()=>{}}/>
 					</label>
 					<button
 						type="button"

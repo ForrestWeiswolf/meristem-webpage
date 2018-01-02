@@ -11,6 +11,7 @@ class Definitions extends Component {
 		}
 
 		this.addNonterminal = this.addNonterminal.bind(this)
+		this.handleChange = props.handleChange.bind(this)
 	}
 
 	addNonterminal(e) {
@@ -27,8 +28,8 @@ class Definitions extends Component {
 				{
 					this.state.nonterminals.map((nonterminal, idx) => {
 						return (<Nonterminal
-							handleChangeToken={() => { }}
-							handleChangeDef={() => { }}
+							handleChangeToken={(e) => { this.handleChange(e) }}
+							handleChangeDef={(e) => { this.handleChange(e) }}
 							key={idx}
 						/>)
 					})

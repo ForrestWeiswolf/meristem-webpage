@@ -28,8 +28,16 @@ class Definitions extends Component {
 				{
 					this.state.nonterminals.map((nonterminal, idx) => {
 						return (<Nonterminal
-							handleChangeToken={(e) => { this.handleChange(e) }}
-							handleChangeDef={(e) => { this.handleChange(e) }}
+							handleChangeToken={(e) => {
+								nonterminal[0] = e.target.value
+								this.setState({nonterminals: this.state.nonterminals})
+								this.handleChange(this.state.nonterminals)
+							}}
+							handleChangeDef={(e) => {
+								nonterminal[1] = e.target.value
+								this.setState({nonterminals: this.state.nonterminals})
+								this.handleChange(this.state.nonterminals)
+							}}
 							key={idx}
 						/>)
 					})
@@ -41,6 +49,7 @@ class Definitions extends Component {
 }
 
 Definitions.propTypes = {
+	handleChange: PropTypes.func.isRequired
 }
 
 export default Definitions

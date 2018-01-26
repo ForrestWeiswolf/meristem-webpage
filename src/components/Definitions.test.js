@@ -14,7 +14,6 @@ describe('Definitions', () => {
 		definitions = shallow(< Definitions handleChange={changeSpy} />)
 	})
 
-
 	xit('has a handleChange function as a prop', () => {
 	})
 
@@ -35,63 +34,43 @@ describe('Definitions', () => {
 		}
 	})
 
-	it('passes a handleChangeToken function as a prop to each Nonterminal', () => {
-		definitions = shallow(< Definitions handleChange={() => {}} />)
+	describe('change handling', () => {
+		//might want to these to be more independant of Nonterminal implementation...
+		let nonterminal
 
-		definitions.find('button.newNonterminal').first()
-			.simulate('click')
+		beforeEach(() => {
+			definitions.find('button.newNonterminal').first()
+				.simulate('click')
 
-		const nonterminal = definitions.find('Nonterminal').first()
-		
-		expect(nonterminal.props().handleChangeToken).to.be.a('function')
-	})
+			nonterminal = definitions.find('Nonterminal').first()
+		})
 
-	it('passes a handleChangeDef function as a prop to each Nonterminal', () => {
-		definitions = shallow(< Definitions handleChange={() => {}} />)
+		it('passes a handleChangeToken function as a prop to each Nonterminal', () => {
+			expect(nonterminal.props().handleChangeToken).to.be.a('function')
+		})
 
-		definitions.find('button.newNonterminal').first()
-			.simulate('click')
+		it('passes a handleChangeDef function as a prop to each Nonterminal', () => {
+			expect(nonterminal.props().handleChangeDef).to.be.a('function')
+		})
 
-		const nonterminal = definitions.find('Nonterminal').first()
-		
-		expect(nonterminal.props().handleChangeDef).to.be.a('function')
-	})
+		it('calls handleChange when one of its nonterminals handleChangeToken method is called', () => {
+			expect(changeSpy.called).to.be.false
 
-	it('calls handleChange when one of its nonterminals handleChangeToken method is called', () => {
-		//might want to change this test to be independant of Nonterminal implementation...
-		definitions = shallow(< Definitions handleChange={changeSpy} />)
+			const nontEvt = { target: { name: 'nonterminal', value: 'foo' } }
 
-		definitions.find('button.newNonterminal').first()
-			.simulate('click')
+			nonterminal.props().handleChangeToken(nontEvt)
 
-		expect(changeSpy.called).to.be.false
+			expect(changeSpy.called).to.be.true
+		})
 
-		const nontEvt = { target: { name: 'nonterminal', value: 'foo' } }
+		it('calls handleChange when one of its nonterminals handleChangeDef method is called', () => {
+			expect(changeSpy.called).to.be.false
 
-		definitions.find('Nonterminal')
-			.first()
-			.props()
-			.handleChangeToken(nontEvt)
+			const defEvt = { target: { name: 'definition', value: 'bar' } }
 
-		expect(changeSpy.called).to.be.true
-	})
+			nonterminal.props().handleChangeDef(defEvt)
 
-	it('calls handleChange when one of its nonterminals handleChangeDef method is called', () => {
-		//might want to change this test to be independant of Nonterminal implementation...
-		definitions = shallow(< Definitions handleChange={changeSpy} />)
-
-		definitions.find('button.newNonterminal').first()
-			.simulate('click')
-
-		expect(changeSpy.called).to.be.false
-
-		const defEvt = { target: { name: 'definition', value: 'bar' } }
-
-		definitions.find('Nonterminal')
-			.first()
-			.props()
-			.handleChangeDef(defEvt)
-
-		expect(changeSpy.called).to.be.true
-	})
+			expect(changeSpy.called).to.be.true
+		})
+	})//end change handling
 })

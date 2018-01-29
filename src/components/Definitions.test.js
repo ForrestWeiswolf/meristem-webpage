@@ -3,7 +3,6 @@ import { shallow, mount } from 'enzyme'
 import { expect } from 'chai'
 import { spy } from 'sinon'
 import Definitions from './Definitions'
-import Nonterminal from './Nonterminal';
 
 describe('Definitions', () => {
 	let definitions

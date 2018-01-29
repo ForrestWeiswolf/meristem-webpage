@@ -72,5 +72,34 @@ describe('Definitions', () => {
 
 			expect(changeSpy.called).to.be.true
 		})
+
+		it('calls handleChange with an array of arrays of its Nonterminals\' values', () => {
+			definitions = shallow(< Definitions handleChange={changeSpy} />)
+
+			const inputs = [
+				['a', 'A'],
+				['b', 'B'],
+				['c', 'C']
+			]
+
+			for (let i = 0; i < 3; i++) {
+				definitions.find('button.newNonterminal').first()
+					.simulate('click')
+
+				nonterminal = definitions.find('Nonterminal').last()
+
+				nonterminal
+					.props()
+					.handleChangeToken({ target: { name: 'nonterminal', value: inputs[i][0] } })
+
+				nonterminal
+					.props()
+					.handleChangeDef({ target: { name: 'nonterminal', value: inputs[i][1] } })
+			}
+
+			const calls = changeSpy.getCalls()
+			const lastCall = calls[calls.length - 1]
+			expect(lastCall.args[0]).to.deep.equal(inputs)
+		})
 	})//end change handling
 })

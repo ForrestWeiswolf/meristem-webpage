@@ -26,38 +26,38 @@ describe('FormatForm', () => {
 		expect(formatForm.find('input[type="text"][name="formatString"]')).to.have.length(1)
 	})
 
-	it('contains a text field named "definitions"', () => {
-		expect(formatForm.find('input[type="text"][name="definitions"]')).to.have.length(1)
+	it('contains a Definitions component', () => {
+		expect(formatForm.find('Definitions')).to.have.length(1)
+	})
+
+	it('has a \'generate\' button', () => {
+		expect(formatForm.find('button').text()).to.match(/generate/i)
 	})
 
 	// it('has a handleSubmit function as a prop', () => {
 	// 	expect(formatForm.props().handleSubmit).to.be.a('function')
 	// })
 
-	it('has a \'generate\' button', () => {
-		expect(formatForm.find('button').text()).to.match(/generate/i)
-	})
+	describe('handleSubmit', () => {
+		it('is called when the submit button is clicked', () => {
+			formatForm.find('button').first().simulate('click')
 
-	it('calls handleSubmit when the submit button is clicked', () => {
-		formatForm.find('button').first().simulate('click')
+			expect(submitSpy.called).to.be.true
+		})
 
-		expect(submitSpy.called).to.be.true
-	})
+		it('first arg is the contents of the formatString field', () => {
+			const formatString = 'A (nonterminal) part of the string'
+			const formatStringEvt = { target: { name: 'formatString', value: formatString } }
 
-	it('calls handleSubmit with whatever was typed in the formatString and defintions fields', () => {
-		const formatString = 'A (nonterminal) part of the string'
-		const definitions = '{"nonterminal": "terminal"}'
+			formatForm.find('input[name="formatString"]').first()
+				.simulate('change', formatStringEvt)
 
-		const formatStringEvt = { target: { name: 'formatString', value: formatString } }
-		const definitionsEvt = { target: { name: 'definitions', value: definitions } }
+			formatForm.find('button').first().simulate('click')
 
-		formatForm.find('input[name="formatString"]').first()
-			.simulate('change', formatStringEvt)
+			expect(submitSpy.getCall(0).args[0]).to.equal(formatString)
+		})
 
-		formatForm.find('input[name="definitions"]').first()
-			.simulate('change', definitionsEvt)
-		formatForm.find('button').first().simulate('click')
-
-		expect(submitSpy.calledWith(formatString, definitions)).to.be.true
+		xit('second arg is the result of the last call of the function passed to Definitions component', () => {
+		})
 	})
 })

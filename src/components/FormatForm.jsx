@@ -10,16 +10,6 @@ class FormatForm extends Component {
 			definitions: ''
 		}
 		this.handleSubmit = this.props.handleSubmit.bind(this)
-		this.handleChangeFormat = this.handleChangeFormat.bind(this)
-		this.handleChangeDefinitions = this.handleChangeDefinitions.bind(this)
-	}
-
-	handleChangeFormat(evt) {
-		this.setState({ formatString: evt.target.value })
-	}
-
-	handleChangeDefinitions(evt) {
-		this.setState({ definitions: evt.target.value })
 	}
 
 	render() {
@@ -31,12 +21,12 @@ class FormatForm extends Component {
 							type='text'
 							name='formatString'
 							value={this.state.formatString}
-							onChange={this.handleChangeFormat}
+							onChange={(e) => { this.setState({ formatString: e.target.value }) }}
 						/>
 					</label>
 					<br />
 					<label> Definitions:
-						<Definitions handleChange={(defs)=>{}}/>
+						<Definitions handleChange={(defs) => { this.setState({ definitions: defs }) }} />
 					</label>
 					<button
 						type="button"

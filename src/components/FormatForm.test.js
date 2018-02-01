@@ -45,19 +45,45 @@ describe('FormatForm', () => {
 			expect(submitSpy.called).to.be.true
 		})
 
-		it('first arg is the contents of the formatString field', () => {
-			const formatString = 'A (nonterminal) part of the string'
-			const formatStringEvt = { target: { name: 'formatString', value: formatString } }
+		describe('first arg', () => {
+			it('is the contents of the formatString field', () => {
+				const formatString = 'A (nonterminal) part of the string'
+				const formatStringEvt = { target: { name: 'formatString', value: formatString } }
 
-			formatForm.find('input[name="formatString"]').first()
-				.simulate('change', formatStringEvt)
+				formatForm.find('input[name="formatString"]').first()
+					.simulate('change', formatStringEvt)
 
-			formatForm.find('button').first().simulate('click')
+				//should change this to not assume that the first button is the right one:
+				formatForm.find('button').first().simulate('click')
 
-			expect(submitSpy.getCall(0).args[0]).to.equal(formatString)
+				expect(submitSpy.getCall(0).args[0]).to.equal(formatString)
+			})
 		})
 
-		xit('second arg is the result of the last call of the function passed to Definitions component', () => {
+		describe('second arg', () => {
+			it('is the value passed to the the Definitions component\'s handleChange prop', () => {
+				const fakeDefs = [['a', 'A'], ['b', 'B']]
+				const definitionsComponent = formatForm.find('Definitions')
+
+				definitionsComponent.props().handleChange(fakeDefs)
+
+				formatForm.find('button').first().simulate('click')
+
+				expect(submitSpy.getCall(0).args[1]).to.deep.equal(fakeDefs)
+			})
+
+			it('is the last value returned if the handleChange has been called multiple times', () => {
+				const firstFakeDefs = [['a', 'A']]
+				const lastFakeDefs = [['a', 'A'], ['b', 'B']]
+				const definitionsComponent = formatForm.find('Definitions')
+
+				definitionsComponent.props().handleChange(firstFakeDefs)
+				definitionsComponent.props().handleChange(lastFakeDefs)
+
+				formatForm.find('button').first().simulate('click')
+
+				expect(submitSpy.getCall(0).args[1]).to.deep.equal(lastFakeDefs)
+			})
 		})
 	})
 })

@@ -6,7 +6,13 @@ const Results = (props) => {
 	let text = ''
 
 	if (props.formatString && props.definitions) {
-		const format = new Format(props.formatString, props.definitions)
+		let defs = {}
+		props.definitions.forEach((pair) => {
+			defs[pair[0]] = pair[1]
+		})
+		
+		const format = new Format(props.formatString, defs)
+
 		text = format.expand()
 	}
 

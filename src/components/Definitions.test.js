@@ -73,7 +73,12 @@ describe('Definitions', () => {
 		})
 
 		it('calls handleChange with an array of arrays of its Nonterminals\' values', () => {
-			definitions = shallow(< Definitions handleChange={changeSpy} />)
+			/* Note that we're using a 2d array here, 
+			even though the whole thing will be turned into an object elsewhere, 
+			because the user may change a nonterminal but want to keep it's defintion; 
+			changing a key on an Object while preserving the value is rather awkward. */
+
+			definitions = shallow(< Definitions handleChange={changeSpy} />) 
 
 			const inputs = [
 				['a', 'A'],

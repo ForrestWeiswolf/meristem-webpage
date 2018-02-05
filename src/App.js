@@ -20,7 +20,7 @@ class App extends Component {
 					<h1 className="App-title">Meristem</h1>
 				</header>
 				<FormatForm
-					handleSubmit={(str, defs) => this.setState({ formatString: str, definitions: JSON.parse(defs) })}
+					handleSubmit={(str, defs) => this.setState({ formatString: str, definitions: defs })}
 				/>
 				<Results formatString={this.state.formatString} definitions={this.state.definitions} />
 			</div>

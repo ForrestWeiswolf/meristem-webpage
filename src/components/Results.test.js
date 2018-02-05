@@ -6,13 +6,20 @@ import { Format } from 'meristem'
 
 describe('Results', () => {
 	let results
-	const str = '"(this)" is a sentence without a subject.'
-	const defs = { 'this': 'is a sentence without a subject.' }
+	const str = '"(quine)" (quine). "(otherQuine)" (otherQuine).'
+	const defsAsArr = [
+		['quine', 'is a sentence without a subject'],
+		['otherQuine', 'yields falsehood when preceded by its quotation']
+	]
+	const defsAsObj = {
+		'quine': 'is a sentence without a subject',
+		'otherQuine': 'yields falsehood when preceded by its quotation'
+	}
 
 	beforeEach(() => {
 		results = shallow(<Results
 			formatString={str}
-			definitions={defs}
+			definitions={defsAsArr}
 		/>)
 	})
 
@@ -37,9 +44,11 @@ describe('Results', () => {
 		expect(emptyResults.find('p').text()).to.equal('')
 	})
 
-	it('If it is passed props, renders the result of expanding a Meristem format with the formatString and definitions from its props', () => {
-		const format = new Format(str, defs)
-		expect(results.find('p').text()).to.equal(format.expand())
+	describe('if it is passed a formatString and a 2d array of definitions', () => {
+		it('renders the result of expanding a Meristem format with them, after converting the array into an object', () => {
+			const format = new Format(str, defsAsObj)
+			expect(results.find('p').text()).to.equal(format.expand())
+		})
 	})
 
 	xit('If format.expand throws an error, displays it with class "error"', () => {

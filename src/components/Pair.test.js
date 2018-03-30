@@ -4,14 +4,14 @@ import { shallow } from 'enzyme'
 import { spy } from 'sinon'
 import Pair from './Pair'
 
-describe('Nonterminal', () => {
-	let pair, changeTokenSpy, changeDefSpy
+describe('Pair', () => {
+	let pair, changeFirstSpy, changeSecondSpy
 
 	beforeEach(() => {
-		changeTokenSpy = spy()
-		changeDefSpy = spy()
+		changeFirstSpy = spy()
+		changeSecondSpy = spy()
 		pair = shallow(
-			<Pair handleChangeToken={changeTokenSpy} handleChangeDef={changeDefSpy} />
+			<Pair handleChangeFirst={changeFirstSpy} handleChangeSecond={changeSecondSpy} />
 		)
 	})
 
@@ -19,35 +19,35 @@ describe('Nonterminal', () => {
 		expect(pair.hasClass('pair')).to.be.true
 	})
 
-	xit('takes a handleChangeToken function as a prop', () => {
+	xit('takes a handleChangeFirst function as a prop', () => {
 	})
 
-	xit('takes a handleChangeDef function as a prop', () => {
+	xit('takes a handleChangeSecond function as a prop', () => {
 	})
 
-	it('contains a text field named "token"', () => {
-		expect(pair.find('input[type="text"][name="token"]')).to.have.length(1)
+	it('contains a text field named "first"', () => {
+		expect(pair.find('input[type="text"][name="first"]')).to.have.length(1)
 	})
 
-	it('contains a text field named "definition"', () => {
-		expect(pair.find('input[type="text"][name="definition"]')).to.have.length(1)
+	it('contains a text field named "second"', () => {
+		expect(pair.find('input[type="text"][name="second"]')).to.have.length(1)
 	})
 
-	it('calls its handleChangeToken when "token" is changed', () => {
-		expect(changeTokenSpy.called).to.be.false
+	it('calls its handleChangeFirst when "first" is changed', () => {
+		expect(changeFirstSpy.called).to.be.false
 
-		pair.find('input[name="token"]').first()
-			.simulate('change', { target: { name: 'definition', value: 'color' } })
+		pair.find('input[name="first"]').first()
+			.simulate('change', { target: { name: 'second', value: 'color' } })
 
-		expect(changeTokenSpy.called).to.be.true
+		expect(changeFirstSpy.called).to.be.true
 	})
 
-	it('calls its handleChangeDef when "definition" is changed', () => {
-		expect(changeDefSpy.called).to.be.false
+	it('calls its handleChangeSecond when "second" is changed', () => {
+		expect(changeSecondSpy.called).to.be.false
 
-		pair.find('input[name="definition"]').first()
-			.simulate('change', { target: { name: 'definition', value: 'black' } })
+		pair.find('input[name="second"]').first()
+			.simulate('change', { target: { name: 'second', value: 'black' } })
 
-		expect(changeDefSpy.called).to.be.true
+		expect(changeSecondSpy.called).to.be.true
 	})
 })

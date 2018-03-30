@@ -28,12 +28,12 @@ class Definitions extends Component {
 				{
 					this.state.nonterminals.map((nonterminal, idx) => {
 						return (<Pair
-							handleChangeToken={(e) => {
+							handleChangeFirst={(e) => {
 								nonterminal[0] = e.target.value
 								this.setState({nonterminals: this.state.nonterminals})
 								this.handleChange(this.state.nonterminals)
 							}}
-							handleChangeDef={(e) => {
+							handleChangeSecond={(e) => {
 								nonterminal[1] = e.target.value
 								this.setState({nonterminals: this.state.nonterminals})
 								this.handleChange(this.state.nonterminals)

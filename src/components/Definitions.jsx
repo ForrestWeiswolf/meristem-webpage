@@ -28,6 +28,7 @@ class Definitions extends Component {
 				{
 					this.state.nonterminals.map((nonterminal, idx) => {
 						return (<Pair
+							labels={["token", "definition"]}
 							handleChangeFirst={(e) => {
 								nonterminal[0] = e.target.value
 								this.setState({nonterminals: this.state.nonterminals})

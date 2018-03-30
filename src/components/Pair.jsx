@@ -4,18 +4,18 @@ import PropTypes from 'prop-types'
 const Pair = props => {
 	return (
 		<div className="pair">
-			<label> Token:
+			<label> {props.labels[0]}:
 				<input
 					type='text'
-					name='token'
+					name={props.labels[0]}
 					onChange={props.handleChangeFirst}
 				/>
 			</label>
 
-			<label> Definition:
+			<label> {props.labels[1]}:
 				<input
 					type='text'
-					name='definition'
+					name={props.labels[1]}
 					onChange={props.handleChangeSecond}
 				/>
 			</label>
@@ -24,6 +24,7 @@ const Pair = props => {
 }
 
 Pair.propTypes = {
+	labels: PropTypes.array.isRequired,
 	handleChangeFirst: PropTypes.func.isRequired,
 	handleChangeSecond: PropTypes.func.isRequired
 }

@@ -16,43 +16,43 @@ describe('Definitions', () => {
 	xit('has a handleChange function as a prop', () => {
 	})
 
-	it('doesn\'t render any Nonterminals to start with', () => {
-		expect(definitions.find('Nonterminal')).to.have.length(0)
+	it('doesn\'t render any Pairs to start with', () => {
+		expect(definitions.find('Pair')).to.have.length(0)
 	})
 
 	it('Has an "New nonterminal" button', () => {
 		expect(definitions.find('button.newNonterminal')).to.have.length(1)
 	})
 
-	it('Renders N Nonterminals if the button has been clicked N times', () => {
+	it('Renders N Pairs if the button has been clicked N times', () => {
 		for (let i = 1; i <= 5; i++) {
 			definitions.find('button.newNonterminal').first()
 				.simulate('click')
 
-			expect(definitions.find('Nonterminal')).to.have.length(i)
+			expect(definitions.find('Pair')).to.have.length(i)
 		}
 	})
 
 	describe('change handling', () => {
-		//might want to these to be more independant of Nonterminal implementation...
+		//might want to these to be more independant of Pair implementation...
 		let nonterminal
 
 		beforeEach(() => {
 			definitions.find('button.newNonterminal').first()
 				.simulate('click')
 
-			nonterminal = definitions.find('Nonterminal').first()
+			nonterminal = definitions.find('Pair').first()
 		})
 
-		it('passes a handleChangeToken function as a prop to each Nonterminal', () => {
+		it('passes a handleChangeToken function as a prop to each Pair', () => {
 			expect(nonterminal.props().handleChangeToken).to.be.a('function')
 		})
 
-		it('passes a handleChangeDef function as a prop to each Nonterminal', () => {
+		it('passes a handleChangeDef function as a prop to each Pair', () => {
 			expect(nonterminal.props().handleChangeDef).to.be.a('function')
 		})
 
-		it('calls handleChange when one of its nonterminals handleChangeToken method is called', () => {
+		it('calls handleChange when one of its Pairs handleChangeToken method is called', () => {
 			expect(changeSpy.called).to.be.false
 
 			const nontEvt = { target: { name: 'nonterminal', value: 'foo' } }
@@ -62,7 +62,7 @@ describe('Definitions', () => {
 			expect(changeSpy.called).to.be.true
 		})
 
-		it('calls handleChange when one of its nonterminals handleChangeDef method is called', () => {
+		it('calls handleChange when one of its pairs\' handleChangeDef method is called', () => {
 			expect(changeSpy.called).to.be.false
 
 			const defEvt = { target: { name: 'definition', value: 'bar' } }
@@ -72,7 +72,7 @@ describe('Definitions', () => {
 			expect(changeSpy.called).to.be.true
 		})
 
-		it('calls handleChange with an array of arrays of its Nonterminals\' values', () => {
+		it('calls handleChange with an array of arrays of its Pairs\' values', () => {
 			/* Note that we're using a 2d array here, 
 			even though the whole thing will be turned into an object elsewhere, 
 			because the user may change a nonterminal but want to keep it's defintion; 

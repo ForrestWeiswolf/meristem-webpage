@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Nonterminal = props => {
+const Pair = props => {
 	return (
-		<div className="nonterminal">
+		<div className="pair">
 			<label> Token:
 				<input
 					type='text'
@@ -23,9 +23,9 @@ const Nonterminal = props => {
 	)
 }
 
-Nonterminal.propTypes = {
+Pair.propTypes = {
 	handleChangeToken: PropTypes.func.isRequired,
 	handleChangeDef: PropTypes.func.isRequired
 }
 
-export default Nonterminal
+export default Pair

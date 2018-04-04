@@ -26,8 +26,8 @@ describe('FormatForm', () => {
 		expect(formatForm.find('input[type="text"][name="formatString"]')).to.have.length(1)
 	})
 
-	it('contains a Definitions component', () => {
-		expect(formatForm.find('Definitions')).to.have.length(1)
+	it('contains a ListForm component', () => {
+		expect(formatForm.find('ListForm')).to.have.length(1)
 	})
 
 	it('has a \'generate\' button', () => {
@@ -61,11 +61,11 @@ describe('FormatForm', () => {
 		})
 
 		describe('second arg', () => {
-			it('is the value passed to the the Definitions component\'s handleChange prop', () => {
+			it('is the value passed to the the ListForm component\'s handleChange prop', () => {
 				const fakeDefs = [['a', 'A'], ['b', 'B']]
-				const definitionsComponent = formatForm.find('Definitions')
+				const listForm = formatForm.find('ListForm')
 
-				definitionsComponent.props().handleChange(fakeDefs)
+				listForm.props().handleChange(fakeDefs)
 
 				formatForm.find('button').first().simulate('click')
 
@@ -75,10 +75,10 @@ describe('FormatForm', () => {
 			it('is the last value returned if the handleChange has been called multiple times', () => {
 				const firstFakeDefs = [['a', 'A']]
 				const lastFakeDefs = [['a', 'A'], ['b', 'B']]
-				const definitionsComponent = formatForm.find('Definitions')
+				const listForm = formatForm.find('ListForm')
 
-				definitionsComponent.props().handleChange(firstFakeDefs)
-				definitionsComponent.props().handleChange(lastFakeDefs)
+				listForm.props().handleChange(firstFakeDefs)
+				listForm.props().handleChange(lastFakeDefs)
 
 				formatForm.find('button').first().simulate('click')
 

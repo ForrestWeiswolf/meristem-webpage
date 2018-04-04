@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Definitions from './Definitions'
+import ListForm from './ListForm'
 
 class FormatForm extends Component {
 	constructor(props) {
@@ -26,7 +26,7 @@ class FormatForm extends Component {
 					</label>
 					<br />
 					<label> Definitions:
-						<Definitions handleChange={(defs) => { this.setState({ definitions: defs }) }} />
+						<ListForm handleChange={(defs) => { this.setState({ definitions: defs }) }} />
 					</label>
 					<button
 						type="button"

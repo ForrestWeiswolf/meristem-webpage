@@ -2,34 +2,34 @@ import React from 'react'
 import { shallow, mount } from 'enzyme'
 import { expect } from 'chai'
 import { spy } from 'sinon'
-import Definitions from './Definitions'
+import ListForm from './ListForm'
 
-describe('Definitions', () => {
-	let definitions
+describe('ListForm', () => {
+	let listForm
 	let changeSpy
 
 	beforeEach(() => {
 		changeSpy = spy()
-		definitions = shallow(< Definitions handleChange={changeSpy} />)
+		listForm = shallow(< ListForm handleChange={changeSpy} />)
 	})
 
 	xit('has a handleChange function as a prop', () => {
 	})
 
 	it('doesn\'t render any Nonterminals to start with', () => {
-		expect(definitions.find('Nonterminal')).to.have.length(0)
+		expect(listForm.find('Nonterminal')).to.have.length(0)
 	})
 
 	it('Has an "New nonterminal" button', () => {
-		expect(definitions.find('button.newNonterminal')).to.have.length(1)
+		expect(listForm.find('button.newNonterminal')).to.have.length(1)
 	})
 
 	it('Renders N Nonterminals if the button has been clicked N times', () => {
 		for (let i = 1; i <= 5; i++) {
-			definitions.find('button.newNonterminal').first()
+			listForm.find('button.newNonterminal').first()
 				.simulate('click')
 
-			expect(definitions.find('Nonterminal')).to.have.length(i)
+			expect(listForm.find('Nonterminal')).to.have.length(i)
 		}
 	})
 
@@ -38,10 +38,10 @@ describe('Definitions', () => {
 		let nonterminal
 
 		beforeEach(() => {
-			definitions.find('button.newNonterminal').first()
+			listForm.find('button.newNonterminal').first()
 				.simulate('click')
 
-			nonterminal = definitions.find('Nonterminal').first()
+			nonterminal = listForm.find('Nonterminal').first()
 		})
 
 		it('passes a handleChangeToken function as a prop to each Nonterminal', () => {
@@ -78,7 +78,7 @@ describe('Definitions', () => {
 			because the user may change a nonterminal but want to keep it's defintion; 
 			changing a key on an Object while preserving the value is rather awkward. */
 
-			definitions = shallow(< Definitions handleChange={changeSpy} />) 
+			listForm = shallow(< ListForm handleChange={changeSpy} />) 
 
 			const inputs = [
 				['a', 'A'],
@@ -87,10 +87,10 @@ describe('Definitions', () => {
 			]
 
 			for (let i = 0; i < 3; i++) {
-				definitions.find('button.newNonterminal').first()
+				listForm.find('button.newNonterminal').first()
 					.simulate('click')
 
-				nonterminal = definitions.find('Nonterminal').last()
+				nonterminal = listForm.find('Nonterminal').last()
 
 				nonterminal
 					.props()

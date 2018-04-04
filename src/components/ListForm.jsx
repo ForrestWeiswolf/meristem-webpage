@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Nonterminal from './Nonterminal'
 
-class Definitions extends Component {
+class ListForm extends Component {
 	constructor(props) {
 		super(props)
 
@@ -48,8 +48,8 @@ class Definitions extends Component {
 	}
 }
 
-Definitions.propTypes = {
+ListForm.propTypes = {
 	handleChange: PropTypes.func.isRequired
 }
 
-export default Definitions
+export default ListForm

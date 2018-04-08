@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ListForm from './ListForm'
+import Nonterminal from './Nonterminal'
 
 class FormatForm extends Component {
 	constructor(props) {
@@ -26,7 +27,10 @@ class FormatForm extends Component {
 					</label>
 					<br />
 					<label> Definitions:
-						<ListForm handleChange={(defs) => { this.setState({ definitions: defs }) }} />
+						<ListForm
+							childForm={Nonterminal}
+							handleChange={(defs) => { this.setState({ definitions: defs }) }}
+						/>
 					</label>
 					<button
 						type="button"

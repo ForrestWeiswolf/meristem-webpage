@@ -1,48 +1,44 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Nonterminal from './Nonterminal'
 
 class ListForm extends Component {
 	constructor(props) {
 		super(props)
 
 		this.state = {
-			nonterminals: []
+			items: []
 		}
 
-		this.addNonterminal = this.addNonterminal.bind(this)
+		this.ChildForm = props.childForm
+		this.newItem = this.newItem.bind(this)
 		this.handleChange = props.handleChange.bind(this)
 	}
 
-	addNonterminal(e) {
+	newItem(e) {
 		if (e) {
 			e.preventDefault()
 		}
 
-		this.setState({ nonterminals: [...this.state.nonterminals, []] })
+		this.setState({ items: [...this.state.items, []] })
 	}
 
 	render() {
+		const ChildForm = this.ChildForm
 		return (
 			<div>
 				{
-					this.state.nonterminals.map((nonterminal, idx) => {
-						return (<Nonterminal
-							handleChangeToken={(e) => {
-								nonterminal[0] = e.target.value
-								this.setState({nonterminals: this.state.nonterminals})
-								this.handleChange(this.state.nonterminals)
-							}}
-							handleChangeDef={(e) => {
-								nonterminal[1] = e.target.value
-								this.setState({nonterminals: this.state.nonterminals})
-								this.handleChange(this.state.nonterminals)
-							}}
+					this.state.items.map((item, idx) => {
+						return (<ChildForm
+							// handleChange={(e) => {
+							// 	item = e.target.value
+							// 	this.setState({ items: this.state.items })
+							// 	this.handleChange(this.state.items)
+							// }}
 							key={idx}
 						/>)
 					})
 				}
-				<button className="newNonterminal" onClick={this.addNonterminal}>New nonterminal</button>
+				<button className="newItem" onClick={this.newItem}>New nonterminal</button>
 			</div>
 		)
 	}

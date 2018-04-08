@@ -7,41 +7,49 @@ import ListForm from './ListForm'
 describe('ListForm', () => {
 	let listForm
 	let changeSpy
+	let mockForm = props => {
+		return (<input type="text" onChange={props.handleChange} />)
+	}
 
 	beforeEach(() => {
 		changeSpy = spy()
-		listForm = shallow(< ListForm handleChange={changeSpy} />)
+		listForm = shallow(< ListForm childForm={mockForm} handleChange={changeSpy} />)
 	})
 
 	xit('has a handleChange function as a prop', () => {
 	})
 
-	it('doesn\'t render any Nonterminals to start with', () => {
-		expect(listForm.find('Nonterminal')).to.have.length(0)
+	xit('has a childForm component as a prop', () => {
 	})
 
-	it('Has an "New nonterminal" button', () => {
-		expect(listForm.find('button.newNonterminal')).to.have.length(1)
+	it('doesn\'t render any childForm components to start with', () => {
+		expect(listForm.find('input')).to.have.length(0)
 	})
 
-	it('Renders N Nonterminals if the button has been clicked N times', () => {
+	it('Has an "New" button', () => {
+		expect(listForm.find('button.newItem')).to.have.length(1)
+	})
+
+	it('Renders N childForm components if the button has been clicked N times', () => {
+		listForm = mount(< ListForm childForm={mockForm} handleChange={changeSpy} />)
+
 		for (let i = 1; i <= 5; i++) {
-			listForm.find('button.newNonterminal').first()
+			listForm.find('button.newItem').first()
 				.simulate('click')
 
-			expect(listForm.find('Nonterminal')).to.have.length(i)
+			expect(listForm.find('input')).to.have.length(i)
 		}
 	})
 
-	describe('change handling', () => {
+	xdescribe('change handling', () => {
 		//might want to these to be more independant of Nonterminal implementation...
 		let nonterminal
 
 		beforeEach(() => {
-			listForm.find('button.newNonterminal').first()
+			listForm.find('button.newItem').first()
 				.simulate('click')
 
-			nonterminal = listForm.find('Nonterminal').first()
+			nonterminal = listForm.find('input').first()
 		})
 
 		it('passes a handleChangeToken function as a prop to each Nonterminal', () => {
@@ -78,7 +86,7 @@ describe('ListForm', () => {
 			because the user may change a nonterminal but want to keep it's defintion; 
 			changing a key on an Object while preserving the value is rather awkward. */
 
-			listForm = shallow(< ListForm handleChange={changeSpy} />) 
+			listForm = shallow(< ListForm handleChange={changeSpy} />)
 
 			const inputs = [
 				['a', 'A'],
@@ -87,16 +95,16 @@ describe('ListForm', () => {
 			]
 
 			for (let i = 0; i < 3; i++) {
-				listForm.find('button.newNonterminal').first()
+				listForm.find('button.newItem').first()
 					.simulate('click')
 
-				nonterminal = listForm.find('Nonterminal').last()
+				input = listForm.find('input').last()
 
-				nonterminal
+				input
 					.props()
 					.handleChangeToken({ target: { name: 'nonterminal', value: inputs[i][0] } })
 
-				nonterminal
+				input
 					.props()
 					.handleChangeDef({ target: { name: 'nonterminal', value: inputs[i][1] } })
 			}

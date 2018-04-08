@@ -41,46 +41,28 @@ describe('ListForm', () => {
 		}
 	})
 
-	xdescribe('change handling', () => {
+	describe('change handling', () => {
 		//might want to these to be more independant of Nonterminal implementation...
-		let nonterminal
+		let childForm
 
 		beforeEach(() => {
+			listForm = mount(< ListForm childForm={mockForm} handleChange={changeSpy} />)
+
 			listForm.find('button.newItem').first()
 				.simulate('click')
 
-			nonterminal = listForm.find('input').first()
+			childForm = listForm.find('input').first()
 		})
 
-		it('passes a handleChangeToken function as a prop to each Nonterminal', () => {
-			expect(nonterminal.props().handleChangeToken).to.be.a('function')
-		})
-
-		it('passes a handleChangeDef function as a prop to each Nonterminal', () => {
-			expect(nonterminal.props().handleChangeDef).to.be.a('function')
-		})
-
-		it('calls handleChange when one of its nonterminals handleChangeToken method is called', () => {
+		it('calls handleChange when one of its childForms is changed', () => {
 			expect(changeSpy.called).to.be.false
 
-			const nontEvt = { target: { name: 'nonterminal', value: 'foo' } }
-
-			nonterminal.props().handleChangeToken(nontEvt)
+			childForm.simulate('change')
 
 			expect(changeSpy.called).to.be.true
 		})
 
-		it('calls handleChange when one of its nonterminals handleChangeDef method is called', () => {
-			expect(changeSpy.called).to.be.false
-
-			const defEvt = { target: { name: 'definition', value: 'bar' } }
-
-			nonterminal.props().handleChangeDef(defEvt)
-
-			expect(changeSpy.called).to.be.true
-		})
-
-		it('calls handleChange with an array of arrays of its Nonterminals\' values', () => {
+		xit('calls handleChange with an array of arrays of its childForms\' values', () => {
 			/* Note that we're using a 2d array here, 
 			even though the whole thing will be turned into an object elsewhere, 
 			because the user may change a nonterminal but want to keep it's defintion; 

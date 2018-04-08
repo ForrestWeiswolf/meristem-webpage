@@ -29,11 +29,11 @@ class ListForm extends Component {
 				{
 					this.state.items.map((item, idx) => {
 						return (<ChildForm
-							// handleChange={(e) => {
-							// 	item = e.target.value
-							// 	this.setState({ items: this.state.items })
-							// 	this.handleChange(this.state.items)
-							// }}
+							handleChange={(e) => {
+								item = e.target.value
+								this.setState({ items: this.state.items })
+								this.handleChange(this.state.items)
+							}}
 							key={idx}
 						/>)
 					})

@@ -1,17 +1,16 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { expect } from 'chai'
 import { shallow } from 'enzyme'
 import { spy } from 'sinon'
 import Nonterminal from './Nonterminal'
 
 describe('Nonterminal', () => {
-	let nonterminal, changeTokenSpy, changeDefSpy
+	let nonterminal, changeSpy
 
 	beforeEach(() => {
-		changeTokenSpy = spy()
-		changeDefSpy = spy()
+		changeSpy = spy()
 		nonterminal = shallow(
-			<Nonterminal handleChangeToken={changeTokenSpy} handleChangeDef={changeDefSpy} />
+			<Nonterminal handleChange={changeSpy} />
 		)
 	})
 
@@ -19,10 +18,7 @@ describe('Nonterminal', () => {
 		expect(nonterminal.hasClass('nonterminal')).to.be.true
 	})
 
-	xit('takes a handleChangeToken function as a prop', () => {
-	})
-
-	xit('takes a handleChangeDef function as a prop', () => {
+	xit('takes a handleChange function as a prop', () => {
 	})
 
 	it('contains a text field named "token"', () => {
@@ -33,21 +29,32 @@ describe('Nonterminal', () => {
 		expect(nonterminal.find('input[type="text"][name="definition"]')).to.have.length(1)
 	})
 
-	it('calls its handleChangeToken when "token" is changed', () => {
-		expect(changeTokenSpy.called).to.be.false
+	it('calls its handleChange when "token" is changed', () => {
+		expect(changeSpy.called).to.be.false
 
 		nonterminal.find('input[name="token"]').first()
 			.simulate('change', { target: { name: 'definition', value: 'color' } })
 
-		expect(changeTokenSpy.called).to.be.true
+		expect(changeSpy.called).to.be.true
 	})
 
-	it('calls its handleChangeDef when "definition" is changed', () => {
-		expect(changeDefSpy.called).to.be.false
+	it('calls its handleChange when "definition" is changed', () => {
+		expect(changeSpy.called).to.be.false
 
 		nonterminal.find('input[name="definition"]').first()
 			.simulate('change', { target: { name: 'definition', value: 'black' } })
 
-		expect(changeDefSpy.called).to.be.true
+		expect(changeSpy.called).to.be.true
 	})
+
+	it('calls handleChange with an array containing the values of token and definition', () => {
+		nonterminal.find('input[name="token"]').first()
+		.simulate('change', { target: { name: 'definition', value: 'color' } })
+
+		nonterminal.find('input[name="definition"]').first()
+			.simulate('change', { target: { name: 'definition', value: 'black' } })
+
+		expect(changeSpy.calledWith(['color', 'black'])).to.be.true
+	})
+
 })

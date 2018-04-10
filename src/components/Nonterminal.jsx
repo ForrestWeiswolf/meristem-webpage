@@ -1,31 +1,46 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-const Nonterminal = props => {
-	return (
-		<div className="nonterminal">
-			<label> Token:
-				<input
-					type='text'
-					name='token'
-					onChange={props.handleChangeToken}
-				/>
-			</label>
+class Nonterminal extends Component {
+	constructor(props) {
+		super(props)
 
-			<label> Definition:
-				<input
-					type='text'
-					name='definition'
-					onChange={props.handleChangeDef}
-				/>
-			</label>
-		</div>
-	)
+		this.state = {token: '', definition: ''}
+
+		this.handleChange = this.props.handleChange.bind(this)
+	}
+
+	render() {
+		return (
+			<div className="nonterminal">
+				<label> Token:
+					<input
+						type='text'
+						name='token'
+						onChange={(e) => {
+							this.setState({token: e.target.value})
+							this.handleChange([this.state.token, this.state.definition])
+						}}
+					/>
+				</label>
+
+				<label> Definition:
+					<input
+						type='text'
+						name='definition'
+						onChange={(e) => {
+							this.setState({definition: e.target.value})
+							this.handleChange([this.state.token, this.state.definition])
+						}}
+					/>
+				</label>
+			</div>
+		)
+	}
 }
 
 Nonterminal.propTypes = {
-	handleChangeToken: PropTypes.func.isRequired,
-	handleChangeDef: PropTypes.func.isRequired
+	handleChange: PropTypes.func.isRequired
 }
 
 export default Nonterminal

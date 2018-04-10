@@ -8,7 +8,7 @@ describe('ListForm', () => {
 	let listForm
 	let changeSpy
 	let mockForm = props => {
-		return (<input type="text" onChange={props.handleChange} />)
+		return (<input type="text" name="mockInput" onChange={props.handleChange} />)
 	}
 
 	beforeEach(() => {
@@ -62,34 +62,20 @@ describe('ListForm', () => {
 			expect(changeSpy.called).to.be.true
 		})
 
-		xit('calls handleChange with an array of arrays of its childForms\' values', () => {
-			/* Note that we're using a 2d array here, 
-			even though the whole thing will be turned into an object elsewhere, 
-			because the user may change a nonterminal but want to keep it's defintion; 
-			changing a key on an Object while preserving the value is rather awkward. */
+		it('calls handleChange with an arrays of its childForms\' values', () => {
+			changeSpy = spy()
+			listForm = mount(< ListForm childForm={mockForm} handleChange={changeSpy} />)
 
-			listForm = shallow(< ListForm handleChange={changeSpy} />)
+			const inputs = ['a', 'b', 'c']
 
-			const inputs = [
-				['a', 'A'],
-				['b', 'B'],
-				['c', 'C']
-			]
-
-			for (let i = 0; i < 3; i++) {
+			inputs.forEach((input) => {
 				listForm.find('button.newItem').first()
 					.simulate('click')
 
-				input = listForm.find('input').last()
+				childForm = listForm.find('input').last()
 
-				input
-					.props()
-					.handleChangeToken({ target: { name: 'nonterminal', value: inputs[i][0] } })
-
-				input
-					.props()
-					.handleChangeDef({ target: { name: 'nonterminal', value: inputs[i][1] } })
-			}
+				childForm.simulate('change', { target: { name: 'mockInput', value: input } })
+			})
 
 			const calls = changeSpy.getCalls()
 			const lastCall = calls[calls.length - 1]

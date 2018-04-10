@@ -19,21 +19,23 @@ class ListForm extends Component {
 			e.preventDefault()
 		}
 
-		this.setState({ items: [...this.state.items, []] })
+		this.setState({ items: [...this.state.items, 'null'] })
 	}
 
 	render() {
 		const ChildForm = this.ChildForm
+		const handleChange = this.handleChange
 		return (
 			<div>
 				{
 					this.state.items.map((item, idx) => {
 						return (<ChildForm
 							handleChange={(e) => {
-								item = e.target.value
-								this.setState({ items: this.state.items })
-								this.handleChange(this.state.items)
+								let items = [...this.state.items]
+								items[idx] = e.target.value
+								this.setState({ items }, () => handleChange(this.state.items))
 							}}
+							value={item}
 							key={idx}
 						/>)
 					})

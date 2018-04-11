@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Pair from './Pair'
+import Nonterminal from './Nonterminal'
 
 class Definitions extends Component {
 	constructor(props) {
@@ -27,7 +27,7 @@ class Definitions extends Component {
 			<div>
 				{
 					this.state.nonterminals.map((nonterminal, idx) => {
-						return (<Pair
+						return (<Nonterminal
 							handleChangeToken={(e) => {
 								nonterminal[0] = e.target.value
 								this.setState({nonterminals: this.state.nonterminals})

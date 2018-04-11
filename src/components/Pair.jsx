@@ -8,7 +8,7 @@ const Pair = props => {
 				<input
 					type='text'
 					name='token'
-					onChange={props.handleChangeFirst}
+					onChange={props.handleChangeToken}
 				/>
 			</label>
 
@@ -16,7 +16,7 @@ const Pair = props => {
 				<input
 					type='text'
 					name='definition'
-					onChange={props.handleChangeSecond}
+					onChange={props.handleChangeDef}
 				/>
 			</label>
 		</div>
@@ -24,8 +24,8 @@ const Pair = props => {
 }
 
 Pair.propTypes = {
-	handleChangeFirst: PropTypes.func.isRequired,
-	handleChangeSecond: PropTypes.func.isRequired
+	handleChangeToken: PropTypes.func.isRequired,
+	handleChangeDef: PropTypes.func.isRequired
 }
 
 export default Pair

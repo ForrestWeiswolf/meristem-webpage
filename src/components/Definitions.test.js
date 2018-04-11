@@ -44,30 +44,30 @@ describe('Definitions', () => {
 			nonterminal = definitions.find('Pair').first()
 		})
 
-		it('passes a handleChangeFirst function as a prop to each Pair', () => {
-			expect(nonterminal.props().handleChangeFirst).to.be.a('function')
+		it('passes a handleChangeToken function as a prop to each Pair', () => {
+			expect(nonterminal.props().handleChangeToken).to.be.a('function')
 		})
 
-		it('passes a handleChangeSecond function as a prop to each Pair', () => {
-			expect(nonterminal.props().handleChangeSecond).to.be.a('function')
+		it('passes a handleChangeDef function as a prop to each Pair', () => {
+			expect(nonterminal.props().handleChangeDef).to.be.a('function')
 		})
 
-		it('calls handleChange when one of its Pairs handleChangeFirst method is called', () => {
+		it('calls handleChange when one of its Pairs handleChangeToken method is called', () => {
 			expect(changeSpy.called).to.be.false
 
 			const nontEvt = { target: { name: 'nonterminal', value: 'foo' } }
 
-			nonterminal.props().handleChangeFirst(nontEvt)
+			nonterminal.props().handleChangeToken(nontEvt)
 
 			expect(changeSpy.called).to.be.true
 		})
 
-		it('calls handleChange when one of its pairs\' handleChangeSecond method is called', () => {
+		it('calls handleChange when one of its pairs\' handleChangeDef method is called', () => {
 			expect(changeSpy.called).to.be.false
 
 			const defEvt = { target: { name: 'definition', value: 'bar' } }
 
-			nonterminal.props().handleChangeSecond(defEvt)
+			nonterminal.props().handleChangeDef(defEvt)
 
 			expect(changeSpy.called).to.be.true
 		})
@@ -94,11 +94,11 @@ describe('Definitions', () => {
 
 				nonterminal
 					.props()
-					.handleChangeFirst({ target: { name: 'nonterminal', value: inputs[i][0] } })
+					.handleChangeToken({ target: { name: 'nonterminal', value: inputs[i][0] } })
 
 				nonterminal
 					.props()
-					.handleChangeSecond({ target: { name: 'nonterminal', value: inputs[i][1] } })
+					.handleChangeDef({ target: { name: 'nonterminal', value: inputs[i][1] } })
 			}
 
 			const calls = changeSpy.getCalls()

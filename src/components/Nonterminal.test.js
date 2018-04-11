@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { expect } from 'chai'
 import { shallow } from 'enzyme'
 import { spy } from 'sinon'
@@ -47,14 +47,15 @@ describe('Nonterminal', () => {
 		expect(changeSpy.called).to.be.true
 	})
 
-	it('calls handleChange with an array containing the values of token and definition', () => {
+	it('calls handleChange with an object containing the values of token and definition in .target.value', () => {
 		nonterminal.find('input[name="token"]').first()
 		.simulate('change', { target: { name: 'definition', value: 'color' } })
 
 		nonterminal.find('input[name="definition"]').first()
 			.simulate('change', { target: { name: 'definition', value: 'black' } })
 
-		expect(changeSpy.calledWith(['color', 'black'])).to.be.true
+		const lastCallArg = changeSpy.lastCall.args[0]
+		expect(lastCallArg.target.value).to.deep.equal(['color', 'black'])
 	})
 
 })

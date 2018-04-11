@@ -5,7 +5,7 @@ class Nonterminal extends Component {
 	constructor(props) {
 		super(props)
 
-		this.state = {token: '', definition: ''}
+		this.state = { token: '', definition: '' }
 
 		this.handleChange = this.props.handleChange.bind(this)
 	}
@@ -18,8 +18,13 @@ class Nonterminal extends Component {
 						type='text'
 						name='token'
 						onChange={(e) => {
-							this.setState({token: e.target.value})
-							this.handleChange([this.state.token, this.state.definition])
+							this.setState({ token: e.target.value })
+							//passing handleChange an event object because ListForm expects one
+							this.handleChange({
+								target: {
+									value: [this.state.token, this.state.definition]
+								}
+							})
 						}}
 					/>
 				</label>
@@ -29,8 +34,12 @@ class Nonterminal extends Component {
 						type='text'
 						name='definition'
 						onChange={(e) => {
-							this.setState({definition: e.target.value})
-							this.handleChange([this.state.token, this.state.definition])
+							this.setState({ definition: e.target.value })
+							this.handleChange({
+								target: {
+									value: [this.state.token, this.state.definition]
+								}
+							})
 						}}
 					/>
 				</label>

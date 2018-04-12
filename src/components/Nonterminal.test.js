@@ -49,7 +49,7 @@ describe('Nonterminal', () => {
 
 	it('calls handleChange with an object containing the values of token and definition in .target.value', () => {
 		nonterminal.find('input[name="token"]').first()
-		.simulate('change', { target: { name: 'definition', value: 'color' } })
+			.simulate('change', { target: { name: 'definition', value: 'color' } })
 
 		nonterminal.find('input[name="definition"]').first()
 			.simulate('change', { target: { name: 'definition', value: 'black' } })
@@ -57,5 +57,4 @@ describe('Nonterminal', () => {
 		const lastCallArg = changeSpy.lastCall.args[0]
 		expect(lastCallArg.target.value).to.deep.equal(['color', 'black'])
 	})
-
 })

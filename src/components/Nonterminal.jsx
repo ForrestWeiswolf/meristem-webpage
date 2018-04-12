@@ -17,13 +17,15 @@ class Nonterminal extends Component {
 					<input
 						type='text'
 						name='token'
+						value={this.state.token}
 						onChange={(e) => {
-							this.setState({ token: e.target.value })
-							//passing handleChange an event object because ListForm expects one
-							this.handleChange({
-								target: {
-									value: [this.state.token, this.state.definition]
-								}
+							this.setState({ token: e.target.value }, () => {
+								//passing handleChange an event object because ListForm expects one
+								this.handleChange({
+									target: {
+										value: [this.state.token, this.state.definition]
+									}
+								})
 							})
 						}}
 					/>
@@ -33,12 +35,14 @@ class Nonterminal extends Component {
 					<input
 						type='text'
 						name='definition'
+						value={this.state.definition}
 						onChange={(e) => {
-							this.setState({ definition: e.target.value })
-							this.handleChange({
-								target: {
-									value: [this.state.token, this.state.definition]
-								}
+							this.setState({ definition: e.target.value }, () => {
+								this.handleChange({
+									target: {
+										value: [this.state.token, this.state.definition]
+									}
+								})
 							})
 						}}
 					/>

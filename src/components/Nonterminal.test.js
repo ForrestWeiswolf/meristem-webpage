@@ -25,6 +25,25 @@ describe('Nonterminal', () => {
 		expect(nonterminal.find('input[type="text"][name="token"]')).to.have.length(1)
 	})
 
+	it('contains a select named "type"', () => {
+		expect(nonterminal.find('select[name="type"]')).to.have.length(1)
+	})
+
+	describe('type select', () => {
+		let select
+		beforeEach(() => {
+			select = nonterminal.find('select[name="type"]')
+		})
+
+		it('contains a "text" option', () => {
+			expect(select.find('option[value="text"]')).to.have.length(1)
+		})
+
+		it('contains a "WeightedRandom" option', () => {
+			expect(select.find('option[value="wRand"]')).to.have.length(1)
+		})
+	})
+
 	it('contains a text field named "definition"', () => {
 		expect(nonterminal.find('input[type="text"][name="definition"]')).to.have.length(1)
 	})

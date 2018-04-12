@@ -31,6 +31,13 @@ class Nonterminal extends Component {
 					/>
 				</label>
 
+				<label> Type:
+					<select name="type">
+						<option value="text">Text</option>
+						<option value="wRand">Random</option>
+					</select>
+				</label>
+
 				<label> Definition:
 					<input
 						type='text'

@@ -25,6 +25,15 @@ describe('Nonterminal', () => {
 		expect(nonterminal.find('input[type="text"][name="token"]')).to.have.length(1)
 	})
 
+	it('calls its handleChange when "token" is changed', () => {
+		expect(changeSpy.called).to.be.false
+
+		nonterminal.find('input[name="token"]').first()
+			.simulate('change', { target: { name: 'definition', value: 'color' } })
+
+		expect(changeSpy.called).to.be.true
+	})
+
 	it('contains a select named "type"', () => {
 		expect(nonterminal.find('select[name="type"]')).to.have.length(1)
 	})
@@ -42,38 +51,41 @@ describe('Nonterminal', () => {
 		it('contains a "WeightedRandom" option', () => {
 			expect(select.find('option[value="wRand"]')).to.have.length(1)
 		})
+
+		xit('defaults to "text"', ()=>{
+		})
 	})
 
-	it('contains a text field named "definition"', () => {
-		expect(nonterminal.find('input[type="text"][name="definition"]')).to.have.length(1)
+	describe('when type is "text"', () => {
+		beforeEach(() => {
+			nonterminal.find('select[name="type"]').simulate('change', {target: {value: 'text'}})
+		})
+
+		it('contains a text field named "definition"', () => {
+			expect(nonterminal.find('input[type="text"][name="definition"]')).to.have.length(1)
+		})
+
+		it('calls its handleChange when "definition" is changed', () => {
+			expect(changeSpy.called).to.be.false
+	
+			nonterminal.find('input[name="definition"]').first()
+				.simulate('change', { target: { name: 'definition', value: 'black' } })
+	
+			expect(changeSpy.called).to.be.true
+		})
+	
+		it('calls handleChange with an object containing the values of token and definition in .target.value', () => {
+			nonterminal.find('input[name="token"]').first()
+				.simulate('change', { target: { name: 'definition', value: 'color' } })
+	
+			nonterminal.find('input[name="definition"]').first()
+				.simulate('change', { target: { name: 'definition', value: 'black' } })
+	
+			const lastCallArg = changeSpy.lastCall.args[0]
+			expect(lastCallArg.target.value).to.deep.equal(['color', 'black'])
+		})
 	})
 
-	it('calls its handleChange when "token" is changed', () => {
-		expect(changeSpy.called).to.be.false
-
-		nonterminal.find('input[name="token"]').first()
-			.simulate('change', { target: { name: 'definition', value: 'color' } })
-
-		expect(changeSpy.called).to.be.true
-	})
-
-	it('calls its handleChange when "definition" is changed', () => {
-		expect(changeSpy.called).to.be.false
-
-		nonterminal.find('input[name="definition"]').first()
-			.simulate('change', { target: { name: 'definition', value: 'black' } })
-
-		expect(changeSpy.called).to.be.true
-	})
-
-	it('calls handleChange with an object containing the values of token and definition in .target.value', () => {
-		nonterminal.find('input[name="token"]').first()
-			.simulate('change', { target: { name: 'definition', value: 'color' } })
-
-		nonterminal.find('input[name="definition"]').first()
-			.simulate('change', { target: { name: 'definition', value: 'black' } })
-
-		const lastCallArg = changeSpy.lastCall.args[0]
-		expect(lastCallArg.target.value).to.deep.equal(['color', 'black'])
+	xdescribe('when type is "wRand"', () => {
 	})
 })

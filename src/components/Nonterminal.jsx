@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import ListForm from './ListForm'
 
 class Nonterminal extends Component {
 	constructor(props) {
 		super(props)
 
-		this.state = { token: '', definition: '' }
+		this.state = { token: '', definition: '', type: 'text' }
 
 		this.handleChange = this.props.handleChange.bind(this)
 	}
@@ -32,28 +33,41 @@ class Nonterminal extends Component {
 				</label>
 
 				<label> Type:
-					<select name="type">
+					<select
+						name="type"
+						onChange={(e) => this.setState({ type: e.target.value })}
+						value={this.state.type}
+					>
 						<option value="text">Text</option>
 						<option value="wRand">Random</option>
 					</select>
 				</label>
 
-				<label> Definition:
-					<input
-						type='text'
-						name='definition'
-						value={this.state.definition}
-						onChange={(e) => {
-							this.setState({ definition: e.target.value }, () => {
-								this.handleChange({
-									target: {
-										value: [this.state.token, this.state.definition]
-									}
+				{this.state.type === 'text'
+					? (<label> Definition:
+						<input
+							type='text'
+							name='definition'
+							value={this.state.definition}
+							onChange={(e) => {
+								this.setState({ definition: e.target.value }, () => {
+									this.handleChange({
+										target: {
+											value: [this.state.token, this.state.definition]
+										}
+									})
 								})
-							})
-						}}
-					/>
-				</label>
+							}}
+						/>
+					</label>)
+					:
+					(<ListForm childForm={
+						props => {
+							return (<input type="text" onChange={props.handleChange} />)
+						}
+					} handleChange={() => {}} />)
+				}
+
 			</div>
 		)
 	}

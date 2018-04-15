@@ -65,6 +65,10 @@ describe('Nonterminal', () => {
 			expect(nonterminal.find('input[type="text"][name="definition"]')).to.have.length(1)
 		})
 
+		it('does not contain a ListForm', () => {
+			expect(nonterminal.find('ListForm')).to.have.length(0)
+		})
+
 		it('calls its handleChange when "definition" is changed', () => {
 			expect(changeSpy.called).to.be.false
 	
@@ -86,6 +90,17 @@ describe('Nonterminal', () => {
 		})
 	})
 
-	xdescribe('when type is "wRand"', () => {
+	describe('when type is "wRand"', () => {
+		beforeEach(() => {
+			nonterminal.find('select[name="type"]').simulate('change', {target: {value: 'wRand'}})
+		})
+
+		it('contains a ListForm', () => {
+			expect(nonterminal.find('ListForm')).to.have.length(1)
+		})
+
+		it('does not contain a text field named "definition"', () => {
+			expect(nonterminal.find('input[type="text"][name="definition"]')).to.have.length(0)
+		})
 	})
 })

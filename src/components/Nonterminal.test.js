@@ -132,5 +132,35 @@ describe('Nonterminal', () => {
 
 			expect(changeSpy.called).to.be.true
 		})
+
+		it('calls handleChange with an object containing an array in .target.value', () => {
+			nonterminal.find('input[name="token"]').first()
+				.simulate('change', { target: { name: 'definition', value: 'color' } })
+
+			nonterminal.find('ListForm').first()
+				.props().handleChange([])
+
+			const lastCallArg = changeSpy.lastCall.args[0]
+			expect(lastCallArg.target.value).to.be.an('array')
+		})
+
+		describe('array passed as .target.value to handleChange', () => {
+			it('has the value of token as first element', () => {
+				nonterminal.find('input[name="token"]').first()
+					.simulate('change', { target: { name: 'definition', value: 'color' } })
+
+				const lastCallArg = changeSpy.lastCall.args[0]
+				expect(lastCallArg.target.value[0]).to.equal('color')
+			})
+
+			it('has the value of definition as second element', () => {
+				nonterminal.find('ListForm').first()
+					.props().handleChange(['a', 'b', 'c'])
+
+				const lastCallArg = changeSpy.lastCall.args[0]
+				expect(lastCallArg.target.value[1]).to.deep.equal(['a', 'b', 'c'])
+			})
+		})
+
 	})
 })

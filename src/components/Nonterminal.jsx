@@ -61,13 +61,20 @@ class Nonterminal extends Component {
 						/>
 					</label>)
 					:
-					(<ListForm childForm={
-						props => {
+					(<ListForm
+						childForm={props => {
 							return (<input type="text" onChange={props.handleChange} />)
-						}
-					} handleChange={() => {this.handleChange([])}} />)
-				}
-
+						}}
+						handleChange={(childVals) => {
+							this.setState({ definition: childVals }, () => {
+								this.handleChange({
+									target: {
+										value: [this.state.token, this.state.definition]
+									}
+								})
+							})
+						}}
+					/>)}
 			</div>
 		)
 	}

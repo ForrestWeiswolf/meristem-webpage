@@ -123,5 +123,14 @@ describe('Nonterminal', () => {
 		it('does not contain a text field named "definition"', () => {
 			expect(nonterminal.find('input[type="text"][name="definition"]')).to.have.length(0)
 		})
+
+		it('calls its handleChange when ListForm does', () => {
+			expect(changeSpy.called).to.be.false
+
+			nonterminal.find('ListForm').first()
+				.props().handleChange([])
+
+			expect(changeSpy.called).to.be.true
+		})
 	})
 })

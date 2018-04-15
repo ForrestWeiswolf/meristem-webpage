@@ -65,7 +65,7 @@ class Nonterminal extends Component {
 						props => {
 							return (<input type="text" onChange={props.handleChange} />)
 						}
-					} handleChange={() => {}} />)
+					} handleChange={() => {this.handleChange([])}} />)
 				}
 
 			</div>

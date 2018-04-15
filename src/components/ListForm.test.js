@@ -42,7 +42,6 @@ describe('ListForm', () => {
 	})
 
 	describe('change handling', () => {
-		//might want to these to be more independant of Nonterminal implementation...
 		let childForm
 
 		beforeEach(() => {

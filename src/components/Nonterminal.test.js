@@ -52,13 +52,13 @@ describe('Nonterminal', () => {
 			expect(select.find('option[value="wRand"]')).to.have.length(1)
 		})
 
-		xit('defaults to "text"', ()=>{
+		xit('defaults to "text"', () => {
 		})
 	})
 
 	describe('when type is "text"', () => {
 		beforeEach(() => {
-			nonterminal.find('select[name="type"]').simulate('change', {target: {value: 'text'}})
+			nonterminal.find('select[name="type"]').simulate('change', { target: { value: 'text' } })
 		})
 
 		it('contains a text field named "definition"', () => {
@@ -71,32 +71,53 @@ describe('Nonterminal', () => {
 
 		it('calls its handleChange when "definition" is changed', () => {
 			expect(changeSpy.called).to.be.false
-	
+
 			nonterminal.find('input[name="definition"]').first()
 				.simulate('change', { target: { name: 'definition', value: 'black' } })
-	
+
 			expect(changeSpy.called).to.be.true
 		})
-	
-		it('calls handleChange with an object containing the values of token and definition in .target.value', () => {
+
+		it('calls handleChange with an object containing an array in .target.value', () => {
 			nonterminal.find('input[name="token"]').first()
 				.simulate('change', { target: { name: 'definition', value: 'color' } })
-	
+
 			nonterminal.find('input[name="definition"]').first()
 				.simulate('change', { target: { name: 'definition', value: 'black' } })
-	
+
 			const lastCallArg = changeSpy.lastCall.args[0]
-			expect(lastCallArg.target.value).to.deep.equal(['color', 'black'])
+			expect(lastCallArg.target.value).to.be.an('array')
+		})
+
+		describe('array passed as .target.value to handleChange', () => {
+			it('has the value of token as first element', () => {
+				nonterminal.find('input[name="token"]').first()
+					.simulate('change', { target: { name: 'definition', value: 'color' } })
+
+				const lastCallArg = changeSpy.lastCall.args[0]
+				expect(lastCallArg.target.value[0]).to.equal('color')
+			})
+
+			it('has the value of definition as second element', () => {
+				nonterminal.find('input[name="definition"]').first()
+					.simulate('change', { target: { name: 'definition', value: 'black' } })
+
+				const lastCallArg = changeSpy.lastCall.args[0]
+				expect(lastCallArg.target.value[1]).to.equal('black')
+			})
 		})
 	})
 
 	describe('when type is "wRand"', () => {
 		beforeEach(() => {
-			nonterminal.find('select[name="type"]').simulate('change', {target: {value: 'wRand'}})
+			nonterminal.find('select[name="type"]').simulate('change', { target: { value: 'wRand' } })
 		})
 
 		it('contains a ListForm', () => {
 			expect(nonterminal.find('ListForm')).to.have.length(1)
+		})
+
+		xit('passes correct props to ListForm', () => {
 		})
 
 		it('does not contain a text field named "definition"', () => {

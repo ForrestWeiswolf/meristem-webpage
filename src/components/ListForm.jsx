@@ -26,7 +26,7 @@ class ListForm extends Component {
 		const ChildForm = this.ChildForm
 		const handleChange = this.handleChange
 		return (
-			<div>
+			<div className="listForm">
 				{
 					this.state.items.map((item, idx) => {
 						return (<ChildForm

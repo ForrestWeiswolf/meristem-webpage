@@ -22,6 +22,10 @@ describe('ListForm', () => {
 	xit('has a childForm component as a prop', () => {
 	})
 
+	it('has class "listForm"', () => {
+		expect(listForm.hasClass('listForm')).to.be.true
+	})
+
 	it('doesn\'t render any childForm components to start with', () => {
 		expect(listForm.find(mockForm)).to.have.length(0)
 	})

@@ -26,20 +26,23 @@ class ListForm extends Component {
 		const ChildForm = this.ChildForm
 		const handleChange = this.handleChange
 		return (
-			<div>
-				{
-					this.state.items.map((item, idx) => {
-						return (<ChildForm
-							handleChange={(e) => {
-								let items = [...this.state.items]
-								items[idx] = e.target.value
-								this.setState({ items }, () => handleChange(this.state.items))
-							}}
-							value={item}
-							key={idx}
-						/>)
-					})
-				}
+			<div className="listForm">
+				<ul>
+					{
+						this.state.items.map((item, idx) => {
+							return (<li className="childForm" key={idx}>
+								<ChildForm
+									handleChange={(e) => {
+										let items = [...this.state.items]
+										items[idx] = e.target.value
+										this.setState({ items }, () => handleChange(this.state.items))
+									}}
+									value={item}
+								/>
+							</li>)
+						})
+					}
+				</ul>
 				<button className="newItem" onClick={this.newItem}>New nonterminal</button>
 			</div>
 		)

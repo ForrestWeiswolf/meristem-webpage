@@ -22,6 +22,10 @@ describe('ListForm', () => {
 	xit('has a childForm component as a prop', () => {
 	})
 
+	it('has class "listForm"', () => {
+		expect(listForm.hasClass('listForm')).to.be.true
+	})
+
 	it('doesn\'t render any childForm components to start with', () => {
 		expect(listForm.find('input')).to.have.length(0)
 	})
@@ -30,14 +34,14 @@ describe('ListForm', () => {
 		expect(listForm.find('button.newItem')).to.have.length(1)
 	})
 
-	it('Renders N childForm components if the button has been clicked N times', () => {
+	it('Renders a list of N childForm components if the button has been clicked N times', () => {
 		listForm = mount(< ListForm childForm={mockForm} handleChange={changeSpy} />)
 
 		for (let i = 1; i <= 5; i++) {
 			listForm.find('button.newItem').first()
 				.simulate('click')
 
-			expect(listForm.find('input')).to.have.length(i)
+			expect(listForm.find('ul').find('input')).to.have.length(i)
 		}
 	})
 

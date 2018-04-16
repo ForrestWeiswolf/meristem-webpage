@@ -27,7 +27,7 @@ describe('ListForm', () => {
 	})
 
 	it('doesn\'t render any childForm components to start with', () => {
-		expect(listForm.find('input')).to.have.length(0)
+		expect(listForm.find(mockForm)).to.have.length(0)
 	})
 
 	it('Has an "New" button', () => {
@@ -54,7 +54,7 @@ describe('ListForm', () => {
 			listForm.find('button.newItem').first()
 				.simulate('click')
 
-			childForm = listForm.find('input').first()
+			childForm = listForm.find(mockForm).first()
 		})
 
 		it('calls handleChange when one of its childForms is changed', () => {
@@ -75,7 +75,7 @@ describe('ListForm', () => {
 				listForm.find('button.newItem').first()
 					.simulate('click')
 
-				childForm = listForm.find('input').last()
+				childForm = listForm.find(mockForm).last()
 
 				childForm.simulate('change', { target: { name: 'mockInput', value: input } })
 			})

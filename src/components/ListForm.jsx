@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import './ListForm.css'
 
 class ListForm extends Component {
 	constructor(props) {

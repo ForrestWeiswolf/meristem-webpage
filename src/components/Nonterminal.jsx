@@ -62,6 +62,7 @@ class Nonterminal extends Component {
 					</label>)
 					:
 					(<ListForm
+						className="wRand"
 						childForm={props => {
 							return (<input type="text" onChange={props.handleChange} />)
 						}}

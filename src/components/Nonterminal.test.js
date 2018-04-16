@@ -113,8 +113,12 @@ describe('Nonterminal', () => {
 			nonterminal.find('select[name="type"]').simulate('change', { target: { value: 'wRand' } })
 		})
 
-		it('contains a ListForm', () => {
+		it('contains a ListForm with class wRand', () => {
 			expect(nonterminal.find('ListForm')).to.have.length(1)
+		})
+	
+		it('ListForm has class wRand', () => {
+			expect(nonterminal.find('ListForm').hasClass('wRand')).to.be.true
 		})
 
 		xit('passes correct props to ListForm', () => {
@@ -161,6 +165,5 @@ describe('Nonterminal', () => {
 				expect(lastCallArg.target.value[1]).to.deep.equal(['a', 'b', 'c'])
 			})
 		})
-
 	})
 })

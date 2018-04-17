@@ -41,7 +41,7 @@ describe('ListForm', () => {
 			listForm.find('button.newItem').first()
 				.simulate('click')
 
-			expect(listForm.find('input')).to.have.length(i)
+			expect(listForm.find(mockForm)).to.have.length(i)
 		}
 	})
 

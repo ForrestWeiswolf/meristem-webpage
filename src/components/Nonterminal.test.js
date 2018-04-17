@@ -113,19 +113,16 @@ describe('Nonterminal', () => {
 			nonterminal.find('select[name="type"]').simulate('change', { target: { value: 'wRand' } })
 		})
 
-		it('contains a ListForm with class wRand', () => {
+		it('does not contain a text field named "definition"', () => {
+			expect(nonterminal.find('input[type="text"][name="definition"]')).to.have.length(0)
+		})
+
+		it('contains a ListForm', () => {
 			expect(nonterminal.find('ListForm')).to.have.length(1)
 		})
 	
 		it('ListForm has class wRand', () => {
 			expect(nonterminal.find('ListForm').hasClass('wRand')).to.be.true
-		})
-
-		xit('passes correct props to ListForm', () => {
-		})
-
-		it('does not contain a text field named "definition"', () => {
-			expect(nonterminal.find('input[type="text"][name="definition"]')).to.have.length(0)
 		})
 
 		it('calls its handleChange when ListForm does', () => {

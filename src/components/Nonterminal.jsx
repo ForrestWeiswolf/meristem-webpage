@@ -65,7 +65,7 @@ class Nonterminal extends Component {
 					(<ListForm
 						className="wRand"
 						childForm={props => {
-							return (<input type="text" onChange={props.handleChange} />)
+							return (<WeightedOption handleChange={props.handleChange} />)
 						}}
 						handleChange={(childVals) => {
 							this.setState({ definition: childVals }, () => {

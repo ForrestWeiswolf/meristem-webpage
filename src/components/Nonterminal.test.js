@@ -121,9 +121,20 @@ describe('Nonterminal', () => {
 		it('contains a ListForm', () => {
 			expect(nonterminal.find('ListForm')).to.have.length(1)
 		})
-	
+
 		it('ListForm has class wRand', () => {
 			expect(nonterminal.find('ListForm').hasClass('wRand')).to.be.true
+		})
+
+		xdescribe('ListForm\'s childForm', () => {
+			it('is an Option component', () => {
+				const listForm = nonterminal.find('ListForm').dive()
+
+				listForm.find('button.newItem').first()
+				.simulate('click')
+
+				expect(listForm.find(WeightedOption)).to.have.length(1)
+			})
 		})
 
 		it('calls its handleChange when ListForm does', () => {

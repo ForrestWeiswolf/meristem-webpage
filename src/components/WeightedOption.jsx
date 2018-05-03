@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-class Option extends Component {
+class WeightedOption extends Component {
 	constructor(props) {
 		super(props)
 
@@ -32,8 +32,8 @@ class Option extends Component {
 	}
 }
 
-Option.propTypes = {
+WeightedOption.propTypes = {
 	handleChange: PropTypes.func.isRequired
 }
 
-export default Option
+export default WeightedOption

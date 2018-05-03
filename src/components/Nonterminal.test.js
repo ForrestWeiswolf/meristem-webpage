@@ -3,6 +3,7 @@ import { expect } from 'chai'
 import { shallow } from 'enzyme'
 import { spy } from 'sinon'
 import Nonterminal from './Nonterminal'
+import WeightedOption from './WeightedOption'
 
 describe('Nonterminal', () => {
 	let nonterminal, changeSpy

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ListForm from './ListForm'
+import WeightedOption from './WeightedOption'
 
 class Nonterminal extends Component {
 	constructor(props) {

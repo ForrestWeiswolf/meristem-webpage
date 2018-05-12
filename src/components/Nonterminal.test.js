@@ -4,9 +4,11 @@ import { shallow } from 'enzyme'
 import { spy } from 'sinon'
 import Nonterminal from './Nonterminal'
 import WeightedOption from './WeightedOption'
+import { WeightedRandom } from 'meristem'
 
 describe('Nonterminal', () => {
 	let nonterminal, changeSpy
+	let data = [['a', 1], ['c', 2]]
 
 	beforeEach(() => {
 		changeSpy = spy()
@@ -131,7 +133,7 @@ describe('Nonterminal', () => {
 				const listForm = nonterminal.find('ListForm').dive()
 
 				listForm.find('button.newItem').first()
-				.simulate('click')
+					.simulate('click')
 
 				expect(listForm.find(WeightedOption)).to.have.length(1)
 			})
@@ -148,10 +150,10 @@ describe('Nonterminal', () => {
 
 		it('calls handleChange with an object containing an array in .target.value', () => {
 			nonterminal.find('input[name="token"]').first()
-				.simulate('change', { target: { name: 'definition', value: 'color' } })
+				.simulate('change', { target: { name: 'token', value: 'foo' } })
 
 			nonterminal.find('ListForm').first()
-				.props().handleChange([])
+				.props().handleChange(data)
 
 			const lastCallArg = changeSpy.lastCall.args[0]
 			expect(lastCallArg.target.value).to.be.an('array')
@@ -160,18 +162,30 @@ describe('Nonterminal', () => {
 		describe('array passed as .target.value to handleChange', () => {
 			it('has the value of token as first element', () => {
 				nonterminal.find('input[name="token"]').first()
-					.simulate('change', { target: { name: 'definition', value: 'color' } })
+					.simulate('change', { target: { name: 'token', value: 'color' } })
 
 				const lastCallArg = changeSpy.lastCall.args[0]
 				expect(lastCallArg.target.value[0]).to.equal('color')
 			})
 
-			it('has the value of definition as second element', () => {
+			it('has a WeightedRandom as second element', () => {
 				nonterminal.find('ListForm').first()
-					.props().handleChange(['a', 'b', 'c'])
+					.props().handleChange(data)
 
 				const lastCallArg = changeSpy.lastCall.args[0]
-				expect(lastCallArg.target.value[1]).to.deep.equal(['a', 'b', 'c'])
+				expect(lastCallArg.target.value[1].constructor).to.equal(WeightedRandom)
+			})
+
+			describe('WeightedRandom as second element', () => {
+				it('was passed the value of definition', () => {
+					nonterminal.find('ListForm').first()
+						.props().handleChange(data)
+
+					const lastCallArg = changeSpy.lastCall.args[0]
+					const wRand = lastCallArg.target.value[1]
+
+					expect(lastCallArg.target.value[1]).to.deep.equal(new WeightedRandom(...data))
+				})
 			})
 		})
 	})

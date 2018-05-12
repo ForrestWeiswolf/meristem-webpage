@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ListForm from './ListForm'
 import WeightedOption from './WeightedOption'
+import { WeightedRandom } from 'meristem'
 
 class Nonterminal extends Component {
 	constructor(props) {
@@ -68,7 +69,8 @@ class Nonterminal extends Component {
 							return (<WeightedOption handleChange={props.handleChange} />)
 						}}
 						handleChange={(childVals) => {
-							this.setState({ definition: childVals }, () => {
+							this.setState({ definition: childVals.length ? new WeightedRandom(...childVals) : childVals }, 
+							() => {
 								this.handleChange({
 									target: {
 										value: [this.state.token, this.state.definition]

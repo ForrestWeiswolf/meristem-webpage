@@ -33,7 +33,7 @@ class ListForm extends Component {
 						return (<ChildForm
 							handleChange={(e) => {
 								let items = [...this.state.items]
-								items[idx] = e.target.value
+								items[idx] = (e.target && e.target.value) ? e.target.value : e
 								this.setState({ items }, () => handleChange(this.state.items))
 							}}
 							value={item}

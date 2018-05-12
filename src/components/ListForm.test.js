@@ -65,9 +65,9 @@ describe('ListForm', () => {
 			expect(changeSpy.called).to.be.true
 		})
 
-		it('calls handleChange with an arrays of its childForms\' values', () => {
+		it('calls handleChange with an arrays of its childForms\' values if they are event formatted', () => {
 			changeSpy = spy()
-			listForm = mount(< ListForm childForm={mockForm} handleChange={changeSpy} />)
+			listForm = mount(<ListForm childForm={mockForm} handleChange={changeSpy} />)
 
 			const inputs = ['a', 'b', 'c']
 
@@ -83,6 +83,26 @@ describe('ListForm', () => {
 			const calls = changeSpy.getCalls()
 			const lastCall = calls[calls.length - 1]
 			expect(lastCall.args[0]).to.deep.equal(inputs)
+		})
+
+		it('calls handleChange with an arrays of its childForms\' values if they are not event formatted', () => {
+			changeSpy = spy()
+			let mockComponentForm = (props) => (
+				<input type="text" name="mockInput" onChange={(e) => props.handleChange(e.target.value)} />
+			)
+
+			listForm = mount(< ListForm childForm={mockComponentForm} handleChange={changeSpy} />)
+
+			const inputs = ['a', 'b', 'c']
+
+			inputs.forEach((input) => {
+				listForm.find('button.newItem').first()
+					.simulate('click')
+
+				childForm = listForm.find(mockComponentForm).last()
+
+				childForm.simulate('change', { target: { name: 'mockInput', value: input } })
+			})
 		})
 	})//end change handling
 })

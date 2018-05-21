@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import ListForm from './ListForm'
 import WeightedOption from './WeightedOption'
 import { WeightedRandom } from 'meristem'
+import './Nonterminal.css'
 
 class Nonterminal extends Component {
 	constructor(props) {
@@ -46,7 +47,7 @@ class Nonterminal extends Component {
 				</label>
 
 				{this.state.type === 'text'
-					? (<label> Definition:
+					? (<label className="definition"> Definition:
 						<input
 							type='text'
 							name='definition'
@@ -64,7 +65,7 @@ class Nonterminal extends Component {
 					</label>)
 					:
 					(<ListForm
-						className="wRand"
+						className="wRand definition"
 						childForm={props => {
 							return (<WeightedOption handleChange={props.handleChange} />)
 						}}

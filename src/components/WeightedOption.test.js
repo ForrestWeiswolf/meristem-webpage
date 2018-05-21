@@ -39,14 +39,14 @@ describe('WeightedOption', () => {
 		expect(changeSpy.called).to.be.true
 	})
 
-	it('calls its handleChange with [option, weight]', () => {
+	it('calls its handleChange with [option, parseInt(weight)]', () => {
 		expect(changeSpy.called).to.be.false
 
 		weightedOption.find('input[name="option"]').first()
 			.simulate('change', { target: { name: 'option', value: 'foo' } })
 
 		weightedOption.find('input[name="weight"]').first()
-			.simulate('change', { target: { name: 'weight', value: 12 } })
+			.simulate('change', { target: { name: 'weight', value: '12' } })
 
 		expect(changeSpy.calledWith(['foo', 12])).to.be.true
 	})

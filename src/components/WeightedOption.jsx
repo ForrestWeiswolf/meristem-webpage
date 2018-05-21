@@ -22,7 +22,7 @@ class WeightedOption extends Component {
 				/>
 				<input type='number' name='weight'
 					onChange={(e) => {
-						this.setState({ weight: e.target.value }, () => {
+						this.setState({ weight: parseInt(e.target.value, 10) }, () => {
 							this.handleChange([this.state.option, this.state.weight])
 						})
 					}}
